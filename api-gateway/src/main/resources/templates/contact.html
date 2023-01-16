@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/contact.css">
+    <script src="https://kit.fontawesome.com/6d7e7391eb.js" crossorigin="anonymous"></script>
+
+    <title>GameStore</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{/fragments/nav}"></th:block>
+</header>
+<main>
+    <div class="container">
+        <div class="main">
+            <div class="row justify-content-center">
+                <h1 class="text-white page-title">Contact Us</h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12-fluid half-area">
+                    <span class="text-white">You can drop us a question using our contact form:</span>
+                    <form class="mx-auto border border-white" id="questionForm"
+                          th:object="${contactAddBindingModel}" th:action="@{/contact/add}" method="POST">
+                        <p class="emphasized-text text-white text-left">Your Name: <i><input th:value="*{userName}"
+                                                                                             th:errorclass="bg-light"
+                                                                                             type="text"
+                                                                                             placeholder="Enter your username here"
+                                                                                             name="userName"></input></i>
+                        </p>
+                        <small th:each="e : ${#fields.errors('userName')}" th:text="${e}"
+                               class="text-dark font-weight-bold">Incorrect username!</small>
+                        <p class="emphasized-text text-white text-left">Question: <i><textarea th:field="*{question}"
+                                                                                               th:errorclass="bg-light"
+                                                                                               placeholder="Enter your question here"
+                                                                                               name="question"></textarea></i>
+                        </p>
+                        <small th:each="e : ${#fields.errors('question')}" th:text="${e}"
+                               class="text-dark font-weight-bold">Incorrect username!</small>
+                        <hr>
+                        <input type="submit" class="action-button button-style" value="SUBMIT">
+                    </form>
+                </div>
+                <div class="col-md-12-fluid half-area">
+                    <span class="text-orange">Or you can find us here:</span><br>
+                    <span class="text-white">1113, Sofia, Bulgaria</span><br>
+                    <span class="text-white">Izgrev, 15-17 Tintyava Str., floor 1</span><br>
+                    <span class="text-white">+359889 123 456</span><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+<footer>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

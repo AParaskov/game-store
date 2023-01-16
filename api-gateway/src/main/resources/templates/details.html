@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/details.css">
+    <script src="https://kit.fontawesome.com/6d7e7391eb.js" crossorigin="anonymous"></script>
+
+    <title>GameStore</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{/fragments/nav}"></th:block>
+</header>
+<main>
+
+    <div class="container border border-dark rounded col-md-6-fluid" th:object="${product}">
+        <section id="product-details">
+            <div class="title-container col-sm-12-fluid">
+                <h3 class="title"><span>PRODUCT DETAILS</span></h3>
+            </div>
+
+            <div class="row justify-content-center">
+
+                <div class="grid-container border border-dark rounded col-md-12-fluid">
+                    <div class="col-md-12-fluid col-sm-6-fluid">
+                        <div class="product-photo"><img th:src="*{imgUrl}" alt="Product Photo"/></div>
+                    </div>
+                    <div class="clearfix visible-sm-block"></div>
+                    <div class="col-md-12-fluid col-sm-6-fluid">
+                        <h1 th:text="*{name}" class="product-title text-center">Head First Design Patterns</h1>
+                        <div class="product-details">
+                            <p class="emphasized-text">Manufacturer: <i><span th:text="*{manufacturer}"
+                                                                              id="manufacturer">Eric Freeman, Elisabeth Robson, Kathy
+                                      Sierra</span></i></p>
+                            <p class="emphasized-text">Quantity left: <i><span th:text="*{quantity}" id="quantity-left">8</span></i>
+                            </p>
+                            <p class="product-price">&dollar;<span th:text="*{price}"></span></p>
+                        </div>
+                        <hr>
+                        <div class="form-container">
+                            <form class="qtyFrm" th:object="${shoppingCartProductAdd}"
+                                  th:action="@{/shopping-cart/add}" method="POST">
+                              <span th:if="${product.quantity == 0}">
+                                  <input type="hidden" th:field="*{productId}">
+                              <label class="invisible" for="quantity" hidden>Quantity:</label>
+                              <div class="form-group">
+                                  <input th:field="*{quantity}" type="hidden" name="quantity" min="1"
+                                         placeholder="1">
+                              </div>
+                              <input class="action-button" type="hidden" value="ADD TO CART">
+                              </span>
+                                <span th:unless="${product.quantity == 0}">
+                                   <input type="hidden" th:field="*{productId}">
+                              <label for="quantity">Quantity:</label>
+                              <div class="form-group">
+                                  <input th:field="*{quantity}" type="number" id="quantity" name="quantity" min="1"
+                                         placeholder="1">
+                              </div>
+                              <input class="action-button" type="submit" value="ADD TO CART">
+                              </span>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <hr>
+        <section id="product-description">
+            <div class="row col-sm-12-fluid justify-content-center">
+                <div class="description-container border border-dark rounded w-100">
+                    <h3 class="title"><span>PRODUCT DESCRIPTION</span></h3>
+                    <div class="product-description-long">
+                        <p th:text="*{description}" class="product-description">Read the classic first, then read this
+                            one, and then go back and read the
+                            classic one with a renewed understanding. This book makes design patterns much easier to
+                            understand.
+                            It’s also a useful book for learning how to teach complex topics and make them interesting.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <hr>
+        <section id="all-reviews">
+            <div class="row col-sm-12-fluid justify-content-center">
+                <div class="review-container border border-dark rounded w-100">
+                    <h3 class="title"><span>REVIEWS</span></h3>
+                    <div class="customer-review" th:each="r : ${product.reviews}" th:object="${r}">
+                        <p class="review-details">Author: <i><span th:text="${r.userName}" th:value="${r.userName}"
+                                                                   class="review-details-text">Atanas Paraskov</span></i>
+                        </p>
+                        <p class="review-details">Review: <i><span th:text="${r.text}" th:value="${r.text}"
+                                                                   class="review-details-text">This book has helped me
+                                lay the foundations of my design patterns knowledge.</span></i></p>
+                        <p class="review-details">Date: <i><span th:text="${r.addedOn}" th:value="${r.addedOn}"
+                                                                 class="review-details-text">This book has helped me
+                                lay the foundations of my design patterns knowledge.</span></i></p>
+                    </div>
+                    <div class="row col-sm-3-fluid justify-content-center">
+                        <a th:href="@{/reviews/add(product_id = *{id})}" class="btn button-style w-50">WRITE A
+                            REVIEW</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        </section>
+
+    </div>
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+<footer>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/add-product.css">
+    <script src="https://kit.fontawesome.com/6d7e7391eb.js" crossorigin="anonymous"></script>
+
+    <title>GameStore</title>
+</head>
+<body>
+<header>
+    <th:block th:include="~{/fragments/nav}"></th:block>
+</header>
+<main>
+    <form class="mx-auto border border-white col-md-6 col-sm-6"
+          th:object="${productAddRequest}" th:action="@{/products/add}" method="POST">
+        <div class="container">
+            <h1 class="text-white register">Add Product</h1>
+            <hr>
+            <label class="text-white" for="name"><b>Name</b></label>
+            <div class="form-group">
+                <input th:field="*{name}" th:errorcclass="bg-light" type="text" placeholder="Enter Name" name="name"
+                       id="name" required>
+                <small th:each="e : ${#fields.errors('name')}" th:text="${e}" class="text-dark">Incorrect name!</small>
+            </div>
+            <hr>
+            <label class="text-white" for="manufacturer"><b>Manufacturer</b></label>
+            <div class="form-group">
+                <input th:field="*{manufacturer}" th:errorclass="bg-light" type="text" placeholder="Enter Manufacturer"
+                       name="manufacturer" id="manufacturer" required>
+                <small th:each="e : ${#fields.errors('manufacturer')}" th:text="${e}" class="text-dark">Incorrect
+                    manufacturer</small>
+            </div>
+            <hr>
+            <label class="text-white" for="description"><b>Description</b></label>
+            <div class="form-group">
+                <textarea th:field="*{description}" th:errorclass="bg-light" type="text" name="description"
+                          placeholder="Enter Description" id="description" required></textarea>
+                <small th:each="e : ${#fields.errors('description')}" th:text="${e}" class="text-dark">Incorrect
+                    description</small>
+            </div>
+            <hr>
+            <label class="text-white" for="quantity"><b>Quantity</b></label>
+            <div class="form-group">
+                <input th:field="*{quantity}" th:errorclass="bg-light" type="text" placeholder="Enter Quantity"
+                       name="quantity" id="quantity" required>
+                <small th:each="e : ${#fields.errors('quantity')}" th:text="${e}" class="text-dark">Incorrect
+                    quantity!</small>
+            </div>
+            <hr>
+            <label class="text-white" for="price"><b>Price</b></label>
+            <div class="form-group">
+                <input th:field="*{price}" th:errorclass="bg-light" type="text" placeholder="Enter Price" name="price"
+                       id="price" required>
+                <small th:each="e : ${#fields.errors('price')}" th:text="${e}" class="text-dark">Incorrect
+                    price!</small>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label class="text-white" for="category"><b>Category</b></label>
+                <select class="select" id="category" name="category">
+                    <option selected>Select Category</option>
+                    <option th:each="category : ${category}"
+                            th:text="${category}" th:value="${category}">GAME
+                    </option>
+                </select>
+            </div>
+            <hr>
+            <button type="submit" class="registerbtn register">Add Product</button>
+        </div>
+    </form>
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+<footer>
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>
